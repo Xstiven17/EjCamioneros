@@ -10,12 +10,15 @@ class Camionero extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nombre', 'poblacion', 'dni', 'tfno', 'direccion', 'salario',
+        'nombre', 'poblacion', 'dni', 'tfno', 'direccion', 'salario'
     ];
 
     public function camiones()
     {
-        return $this->belongsToMany(Camion::class, 'camionero_camion', 'camionero_id', 'camion_id');
+        return $this->belongsToMany(Camion::class, 'camionero_camion');
+    }
+
+    public function paquetes(){
+        return $this->hasMany(Paquete::class);
     }
 }
-

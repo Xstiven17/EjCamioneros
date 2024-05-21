@@ -3,25 +3,22 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CamioneroController;
-use App\Http\Controllers\CamionController;
-use App\Http\Controllers\PaqueteController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return  view('welcome');
 });
 
+Route::prefix('camiones')->group(function () {
+    Route::get('/', [CamionController::class, 'index'])->name('camiones.index');
+    Route::get('/create', [CamionController::class, 'create'])->name('camiones.create');
+    Route::post('/', [CamionController::class, 'store'])->name('camiones.store');
+    Route::get('/{camion}', [CamionController::class, 'show'])->name('camiones.show');
+    Route::get('/{camion}/edit', [CamionController::class, 'edit'])->name('camiones.edit');
+    Route::put('/{camion}', [CamionController::class, 'update'])->name('camiones.update');
+    Route::delete('/{camion}', [CamionController::class, 'destroy'])->name('camiones.destroy');
+});
 
-Route::resource('camioneros', CamioneroController::class);
-Route::resource('camiones', CamionController::class);
-Route::resource('paquetes', PaqueteController::class);
+Route::resource('camioneros', CamioneroController::class)->except([
+    'index', 'create', 'store', 'show', 'edit', 'update', 'destroy'
+]);
+

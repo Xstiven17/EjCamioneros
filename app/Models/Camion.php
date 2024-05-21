@@ -15,6 +15,6 @@ class Camion extends Model
 
     public function camioneros()
     {
-        return $this->belongsToMany(Camionero::class, 'camionero_camion', 'camion_id', 'camionero_id');
+        return $this->belongsToMany(Camionero::class, 'camionero_camion');
     }
 }

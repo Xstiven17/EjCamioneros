@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paquetes', function (Blueprint $table) {
+        Schema::create('camionero_camion', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique();
-            $table->string('descripcion');
-            $table->string('destinatario');
-            $table->string('direccion');
             $table->unsignedBigInteger('camionero_id');
+            $table->unsignedBigInteger('camion_id');
             $table->foreign('camionero_id')->references('id')->on('camioneros')->onDelete('cascade');
+            $table->foreign('camion_id')->references('id')->on('camiones')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paquetes');
+        Schema::dropIfExists('camionero_camion');
     }
 };
